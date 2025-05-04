@@ -1,0 +1,18 @@
+assembly-versioning-format: '{Major}.{Minor}.{Patch}.{env:BUILD_NUM ?? 0}'
+assembly-file-versioning-format: '{Major}.{Minor}.{Patch}.{env:BUILD_NUM ?? 0}'
+assembly-informational-format: '{BranchName}.Build{env:BUILD_NUM ?? 0}.{Sha}'
+mode: ContinuousDeployment
+branches:
+  master:
+    regex: ^master$|^main
+    tag:
+  release:
+    tag:
+  feature:
+    tag: useBranchName
+  pull-request:
+    tag: pr
+  hotfix:
+    tag: hf
+  develop:
+    tag: useBranchName
