@@ -1,0 +1,53 @@
+# microservice_1
+# Customize pipeline steps that build, run tests, deploy, and more.
+
+#NOTE: THIS IS JUST A QUICK START; YOU WILL HAVE TO CONFIGURE THIS FILE FOR YOUR USE AND DEPLOYMENTS.
+
+# Build on all branches and let the pipeline configure the conditional logic.
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+  tags:
+    include:
+      - '*'
+
+variables:
+  - template: atlas-service/variables.yml@templates
+    parameters:
+      DockerImageName: 'microservice_1'
+
+resources:
+  repositories:
+    # Define the version of Atlas.PipelineTemplates to reference
+    - repository: templates
+      type: github
+      endpoint: mediwareinc
+      name: mediwareinc/Atlas.PipelineTemplates
+      ref: refs/tags/5.1.0
+
+  containers:
+    # The atlasbuild continer is used during the build stage to build the atlas service
+    - container: atlasbuild
+      image: atlas-build:dotnet6.0
+      endpoint: wellsky_cr
+
+    # Postgress container for unit/integration tests - this is passed into the build stage.
+    # This should be removed if you do not have a database (also remove in the build step).
+    - container: postgres
+      image: postgres:11.13-alpine
+      ports:
+        - 5432:5432
+      env:
+        POSTGRES_PASSWORD: postgres
+
+stages:
+  #################################### BUILD STAGE ########################################
+  - template: atlas-service/build-stages.yml@templates
+    parameters:
+      DependencyProjectTarget: 'microservice_1.sln'
+      DotnetVersion: '6.0'
+      FailIfCoverageEmpty: false #don't fail the build if you don't have tests yet
+      Services:
+        postgres: postgres
