@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "microservice_1": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ATLAS_CONSUL_ENABLED ": "false",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "WebService:HttpsPort": "44300"
+      },
+      "applicationUrl": "http://localhost:8000/docs"
+    }
+  }
+}
