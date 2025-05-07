@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <PackageId>microservice_1</PackageId>
+    <Title>microservice_1</Title>
+    <Authors>WellSky</Authors>
+    <Owners>WellSky</Owners>
+    <PackageVersion>0.0.0.999</PackageVersion>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright 2025 (c) WellSky</Copyright>
+    <Description>microservice_1</Description>
+    <PackageTags></PackageTags>
+  </PropertyGroup>
+</Project>
